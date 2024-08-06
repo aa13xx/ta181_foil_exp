@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<cross_sections>
+  <library materials="H1" path="neutron/H1.h5" type="neutron" />
+  <library materials="H2" path="neutron/H2.h5" type="neutron" />
+  <library materials="H3" path="neutron/H3.h5" type="neutron" />
+  <library materials="Be7" path="neutron/Be7.h5" type="neutron" />
+  <library materials="Be9" path="neutron/Be9.h5" type="neutron" />
+  <library materials="C0" path="neutron/C0.h5" type="neutron" />
+  <library materials="N14" path="neutron/N14.h5" type="neutron" />
+  <library materials="N15" path="neutron/N15.h5" type="neutron" />
+  <library materials="O16" path="neutron/O16.h5" type="neutron" />
+  <library materials="O17" path="neutron/O17.h5" type="neutron" />
+  <library materials="O18" path="neutron/O18.h5" type="neutron" />
+  <library materials="Al27" path="neutron/Al27.h5" type="neutron" />
+  <library materials="Ge70" path="neutron/Ge70.h5" type="neutron" />
+  <library materials="Ge72" path="neutron/Ge72.h5" type="neutron" />
+  <library materials="Ge73" path="neutron/Ge73.h5" type="neutron" />
+  <library materials="Ge74" path="neutron/Ge74.h5" type="neutron" />
+  <library materials="Ge76" path="neutron/Ge76.h5" type="neutron" />
+  <library materials="Pb204" path="neutron/Pb204.h5" type="neutron" />
+  <library materials="Pb206" path="neutron/Pb206.h5" type="neutron" />
+  <library materials="Pb207" path="neutron/Pb207.h5" type="neutron" />
+  <library materials="Pb208" path="neutron/Pb208.h5" type="neutron" />
+  <library materials="H" path="photon/H.h5" type="photon" />
+  <library materials="Be" path="photon/Be.h5" type="photon" />
+  <library materials="C" path="photon/C.h5" type="photon" />
+  <library materials="N" path="photon/N.h5" type="photon" />
+  <library materials="O" path="photon/O.h5" type="photon" />
+  <library materials="Al" path="photon/Al.h5" type="photon" />
+  <library materials="Ge" path="photon/Ge.h5" type="photon" />
+  <library materials="Pb" path="photon/Pb.h5" type="photon" />
+</cross_sections>

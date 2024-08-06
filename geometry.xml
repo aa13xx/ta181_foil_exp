@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<geometry>
+  <cell id="1" material="4" region="-4 3 -2 ~(-6 7 -5) 8" universe="1"/>
+  <cell id="2" material="2" region="(-12 11 -9 10) | (-15 14 -13 29)" universe="1"/>
+  <cell id="3" material="2" region="(-19 18 -16 17) | (-22 21 -20 5)" universe="1"/>
+  <cell id="4" material="2" region="-25 24 -23" universe="1"/>
+  <cell id="5" material="5" region="-28 27 -26" universe="1"/>
+  <cell id="6" material="3" region="-31 30 -29" universe="1"/>
+  <cell id="7" material="1" region="-32 33 39 -38 34 -35" universe="1"/>
+  <cell id="8" material="1" region="-32 33 39 -38 -36 37" universe="1"/>
+  <cell id="9" material="void" region="-1 ~(-4 3 -2 ~(-6 7 -5) 8) ~((-19 18 -16 17) | (-22 21 -20 5)) ~((-12 11 -9 10) | (-15 14 -13 29)) ~(-25 24 -23) ~(-28 27 -26) ~(-31 30 -29) ~(-32 33 39 -38 34 -35) ~(-32 33 39 -38 -36 37)" universe="1"/>
+  <surface boundary="vacuum" coeffs="0.0 0.0 0.0 11.5" id="1" type="sphere"/>
+  <surface coeffs="0.0 0.0 2.465" id="2" type="z-cylinder"/>
+  <surface coeffs="-5.29" id="3" type="z-plane"/>
+  <surface coeffs="0" id="4" type="z-plane"/>
+  <surface coeffs="0.0 0.0 0.595" id="5" type="z-cylinder"/>
+  <surface coeffs="-1.21" id="6" type="z-plane"/>
+  <surface coeffs="-5.29" id="7" type="z-plane"/>
+  <surface coeffs="0 0 -1.21 0.5" id="8" type="sphere"/>
+  <surface coeffs="0.0 0.0 3.5" id="9" type="z-cylinder"/>
+  <surface coeffs="0.0 0.0 3.4" id="10" type="z-cylinder"/>
+  <surface coeffs="-9.2" id="11" type="z-plane"/>
+  <surface coeffs="0.3" id="12" type="z-plane"/>
+  <surface coeffs="0.0 0.0 3.5" id="13" type="z-cylinder"/>
+  <surface coeffs="0.3" id="14" type="z-plane"/>
+  <surface coeffs="0.4" id="15" type="z-plane"/>
+  <surface coeffs="0.0 0.0 2.88" id="16" type="z-cylinder"/>
+  <surface coeffs="0.0 0.0 2.8" id="17" type="z-cylinder"/>
+  <surface coeffs="-9.4" id="18" type="z-plane"/>
+  <surface coeffs="0" id="19" type="z-plane"/>
+  <surface coeffs="0.0 0.0 2.88" id="20" type="z-cylinder"/>
+  <surface coeffs="-9.4" id="21" type="z-plane"/>
+  <surface coeffs="-9.1" id="22" type="z-plane"/>
+  <surface coeffs="0.0 0.0 2.88" id="23" type="z-cylinder"/>
+  <surface coeffs="0" id="24" type="z-plane"/>
+  <surface coeffs="0.03" id="25" type="z-plane"/>
+  <surface coeffs="0.0 0.0 2.88" id="26" type="z-cylinder"/>
+  <surface coeffs="0.03" id="27" type="z-plane"/>
+  <surface coeffs="0.06" id="28" type="z-plane"/>
+  <surface coeffs="0.0 0.0 2.88" id="29" type="z-cylinder"/>
+  <surface coeffs="0.3" id="30" type="z-plane"/>
+  <surface coeffs="0.35" id="31" type="z-plane"/>
+  <surface coeffs="1" id="32" type="z-plane"/>
+  <surface coeffs="-8" id="33" type="z-plane"/>
+  <surface coeffs="5" id="34" type="x-plane"/>
+  <surface coeffs="6" id="35" type="x-plane"/>
+  <surface coeffs="-5" id="36" type="x-plane"/>
+  <surface coeffs="-6" id="37" type="x-plane"/>
+  <surface coeffs="5" id="38" type="y-plane"/>
+  <surface coeffs="-5" id="39" type="y-plane"/>
+</geometry>
