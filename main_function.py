@@ -6,17 +6,7 @@ from foil_presimulation import foil_interaction, foil_radionuclide, foil_radionu
 from foil_openmc import foil_simulation
 from foil_post_analysis import foil_peakarea, foil_spectrum, foil_spectrum_processed, foil_specific_peak_finder
 
-#variable
-beam_current = 1e-6 #A
-cooling_time = 100 #s
-counting_time = 900 #s
-distance_foil = 5 #cm
-irradiation_time = 1000 #s
-proton_energy = 2e7 #eV
-thickness_foil = 0.01 #mm
-peak_energy = 433
-
-#Call fx
+#main function
 def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy):
     cxfile = 'ta181cx.csv'
     foil_isotope = 'ta181'
@@ -43,8 +33,20 @@ def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil,
 
     return(peak_area)
 
-ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
+#test
+'''
+#variable
+beam_current = 1e-6 #A
+cooling_time = 100 #s
+counting_time = 900 #s
+distance_foil = 5 #cm
+irradiation_time = 1000 #s
+proton_energy = 2e7 #eV
+thickness_foil = 0.01 #mm
+peak_energy = 433
 
+ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
+'''
 
 
 

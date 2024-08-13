@@ -1,4 +1,4 @@
-from scipy.optimize import maximize
+from scipy.optimize import minimize
 import pandas
 import numpy as np
 
@@ -16,8 +16,8 @@ boundary = (beam_current_bounds, cooling_time_bounds, counting_time_bounds, dist
 
 #initial values
 beam_current = 10e-7
-cooling_time = 100 #s
-counting_time = 900 #s
+cooling_time = 10000 #s
+counting_time = 1000 #s
 distance_foil = 5 #cm
 irradiation_time = 1000 #s
 
@@ -31,8 +31,7 @@ def objective(beam_current, cooling_time, counting_time, distance_foil, irradiat
     thickness_foil = 0.01 #mm
     peak_area = ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
 
-    return(peak_area)
-
+    return -peak_area
 #constraints
 def constraints1(beam_current, cooling_time, counting_time, distance_foil, irradiation_time):
     #fixed
@@ -46,5 +45,5 @@ def constraints1(beam_current, cooling_time, counting_time, distance_foil, irrad
 
 constraint_1 = {"type": "ineq", "fun": constraints1}
 
-sol = maximize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
 print(sol)
