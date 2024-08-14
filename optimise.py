@@ -43,7 +43,7 @@ def constraints1(beam_current, cooling_time, counting_time, distance_foil, irrad
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
-constraint_1 = {"type": "ineq", "fun": constraints1}
+#constraint_1 = {"type": "ineq", "fun": constraints1}
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary) #, constraints = constraint_1#
 print(sol)
