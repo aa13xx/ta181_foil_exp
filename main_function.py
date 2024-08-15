@@ -15,7 +15,7 @@ def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil,
     density_foil = 0.01665 #g/mm^3
     #setup
     energy_bins = np.linspace(0,1000,3000) #tally bins energy
-    peakfinder_prominence = 10 #for peakfinder
+    peakfinder_prominence = 100 #for peakfinder
     fit_a = 1.288356672289505 #these are numbers found for the hpge in eu152_0703 data
     fit_b = 0.04077411501380705
     fit_c = -0.0001950029411875738

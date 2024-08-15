@@ -49,7 +49,7 @@ def foil_spectrum(energy_bins):
     energy_adjusted = energy[1:]
 
     df_openmc = pandas.DataFrame({'energy': energy_adjusted, 'intensity': intensity})
-    plt.plot(df_openmc.energy, df_openmc.intensity)
+    plt.semilogy(df_openmc.energy, df_openmc.intensity)
     plt.xlabel('Energy [keV]')
     plt.ylabel('Intensity')
     plt.show()
