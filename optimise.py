@@ -58,10 +58,10 @@ def constraints1(parameters):
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
-constraint_1 = {"type": "ineq", "fun": constraints1}
+#constraint_1 = {"type": "ineq", "fun": constraints1}
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
-print(sol)
+#sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
+#print(sol)
 
 #this is to test the process with the initial values
 test_initial = objective(initial_guess)

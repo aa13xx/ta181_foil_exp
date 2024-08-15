@@ -43,6 +43,7 @@ def foil_spectrum(energy_bins):
     sp = openmc.StatePoint(f"statepoint.20.h5")
     tally = sp.get_tally(name=f"{"pulse-height"}")
     intensity = list(tally.get_values(scores=["pulse-height"]).flatten())
+    intensity = intensity[1:]
     #chopping first entry because it is ridiculous and last entry because it is excessive
     energy = energy_bins[1:]
     energy_adjusted = energy[1:]
@@ -58,6 +59,7 @@ def foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fi
     sp = openmc.StatePoint(f"statepoint.20.h5")
     tally = sp.get_tally(name=f"{"pulse-height"}")
     intensity = list(tally.get_values(scores=["pulse-height"]).flatten())
+    intensity = intensity[1:]
     #chopping first entry because it is ridiculous and last entry because it is excessive
     energy = energy_bins[1:]
     energy_adjusted = energy[1:]
