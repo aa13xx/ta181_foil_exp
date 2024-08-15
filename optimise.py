@@ -15,7 +15,7 @@ irradiation_time_bounds = (30,3600) #s
 boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, distance_foil_bounds, irradiation_time_bounds]
 
 #initial values
-beam_current = 10e-7
+beam_current = 1e-7 #A
 cooling_time = 10000 #s
 counting_time = 1000 #s
 distance_foil = 5 #cm
@@ -26,30 +26,34 @@ initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irrad
 #this is the main objective function which takes in values and spit out the peak area of an interested peak energy
 
 def objective(parameters):
-    peak_energy = 100 #interested peak (in keV)
-    #fixed
-    proton_energy = 2e7 #eV
-    thickness_foil = 0.01 #mm
+    #parameters 
     beam_current = parameters[0]
     cooling_time = parameters[1]
     counting_time = parameters[2]
     distance_foil = parameters[3]
     irradiation_time = parameters[4]
+    
+    peak_energy = 343.4 #interested peak (in keV)
+    #fixed
+    proton_energy = 2e7 #eV
+    thickness_foil = 0.01 #mm
+    
     peak_area = ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
 
     return -peak_area
 #constraints
 def constraints1(parameters):
-    #fixed
-    proton_energy = 2e7 #eV
-    thickness_foil = 0.01 #mm
-    #constraint values
-    foil_activity = 1e12 #in keV
+    #parameters
     beam_current = parameters[0]
     cooling_time = parameters[1]
     counting_time = parameters[2]
     distance_foil = parameters[3]
     irradiation_time = parameters[4]
+    #fixed
+    proton_energy = 2e7 #eV
+    thickness_foil = 0.01 #mm
+    #constraint values
+    foil_activity = 1e12 #in keV
     x = ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil) - foil_activity
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
@@ -58,3 +62,7 @@ constraint_1 = {"type": "ineq", "fun": constraints1}
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
 print(sol)
+
+#this is to test the process with the initial values
+test_initial = objective(initial_guess)
+print(-test_initial)

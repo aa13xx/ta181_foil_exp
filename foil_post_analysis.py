@@ -32,9 +32,10 @@ def foil_peakarea(peakfinder_prominence, energy_bins):
     return(df_peak_areas)
 
 def foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy):
-    df_peak_areas = foil_peakarea(peakfinder_prominence, energy_bins)
-    peak_area = df_peak_areas[df_peak_areas['peak_energy'] == peak_energy].peak_areas.values[0]
-
+    df_peak_area = foil_peakarea(peakfinder_prominence, energy_bins)
+    df_peak_area['energy_diff'] = abs(df_peak_area['peak_energy'] - peak_energy) #column of differences between interest peak energy and peak energy
+    closest_peak = df_peak_area.loc[df_peak_area['energy_diff'].idxmin()] #find the row which has the smallest differences
+    peak_area = closest_peak['peak_areas'] #select the peak area of that energy level
     return(peak_area)
 
 def foil_spectrum(energy_bins):
