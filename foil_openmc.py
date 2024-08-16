@@ -74,7 +74,7 @@ def foil_simulation(df_gamma, distance_foil, energy_bins):
     leadshield_height = 9
     sourcedistance = distance_foil + be_cap_cyl_pos + be_cap_cyl_height
 
-    world_boundary = openmc.Sphere(r=11.5, boundary_type='vacuum')
+    world_boundary = openmc.Sphere(r=21, boundary_type='vacuum')
     detector_cyl = openmc.ZCylinder(r=detector_radius, boundary_type='transmission')
     detector_bot = openmc.ZPlane(z0=-detector_height, boundary_type='transmission')
     detector_top = openmc.ZPlane(z0=0, boundary_type='transmission')

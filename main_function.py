@@ -33,21 +33,4 @@ def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil,
 
     return(peak_area)
 
-#test
-'''
-#variable
-beam_current = 1e-6 #A
-cooling_time = 100 #s
-counting_time = 900 #s
-distance_foil = 5 #cm
-irradiation_time = 1000 #s
-proton_energy = 2e7 #eV
-thickness_foil = 0.01 #mm
-peak_energy = 433
-
-ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
-'''
-
-
-
 
