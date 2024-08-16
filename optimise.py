@@ -54,7 +54,7 @@ def constraints1(parameters):
     thickness_foil = 0.01 #mm
     #constraint values
     foil_activity = 1e11 #keV
-    x = ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil) - foil_activity
+    x = foil_activity - ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
