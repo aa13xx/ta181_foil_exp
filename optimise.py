@@ -8,7 +8,7 @@ from main_function import ta181_foil_process
 #bounds
 beam_current_bounds = (1e-9, 10e-6) #A
 cooling_time_bounds = (120, 864000) #s
-counting_time_bounds = (0, 86400) #s
+counting_time_bounds = (100, 86400) #s
 distance_foil_bounds = (0.01, 50) #cm
 irradiation_time_bounds = (30,3600) #s
 
@@ -53,16 +53,16 @@ def constraints1(parameters):
     proton_energy = 2e7 #eV
     thickness_foil = 0.01 #mm
     #constraint values
-    foil_activity = 1e11 #keV
+    foil_activity = 1e12 #keV
     x = foil_activity - ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
-constraint_1 = {"type": "ineq", "fun": constraints1}
+constraint_1 = [{"type": "ineq", "fun": constraints1}]
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
 print(sol)
 
 #this is to test the process with the initial values
-#test_initial = objective(initial_guess)
-#print(-test_initial)
+#print(objective(initial_guess))
+#print(constraints1(initial_guess))
