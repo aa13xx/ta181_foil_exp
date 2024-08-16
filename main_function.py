@@ -28,7 +28,7 @@ def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil,
     foil_simulation(df_gamma, distance_foil, energy_bins) #openmc simulation
     
     peak_area = foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy)
-    foil_spectrum(energy_bins) #display simple spectrum
+    #foil_spectrum(energy_bins) #display simple spectrum
     #foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fit_c) #display processed spectrum (gaussian broadening and peak label)
 
     return(peak_area)

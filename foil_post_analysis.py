@@ -9,8 +9,9 @@ from functions import findpeakarea, peakfinder, broad_spectrum
 
 def foil_peakarea(peakfinder_prominence, energy_bins):
     #extract tallies into pandas df
-    sp = openmc.StatePoint(f"statepoint.20.h5")
-    tally = sp.get_tally(name=f"{"pulse-height"}")
+    with openmc.StatePoint('statepoint.20.h5') as sp:
+    #sp = openmc.StatePoint(f"statepoint.20.h5")
+        tally = sp.get_tally(name=f"{"pulse-height"}")
     intensity = list(tally.get_values(scores=["pulse-height"]).flatten())
     #chopping first entry because it is ridiculous and last entry because it is excessive
     intensity = intensity[1:]
@@ -39,8 +40,9 @@ def foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy):
     return(peak_area)
 
 def foil_spectrum(energy_bins):
+    with openmc.StatePoint('statepoint.20.h5') as sp:
     #extract tallies into pandas df
-    sp = openmc.StatePoint(f"statepoint.20.h5")
+        sp = openmc.StatePoint(f"statepoint.20.h5")
     tally = sp.get_tally(name=f"{"pulse-height"}")
     intensity = list(tally.get_values(scores=["pulse-height"]).flatten())
     intensity = intensity[1:]
