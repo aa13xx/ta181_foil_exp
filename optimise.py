@@ -62,11 +62,23 @@ def constraints1(parameters):
 
 constraint_1 = [{"type": "ineq", "fun": constraints1}]
 
+# Additional constraints for bounds (needed for methods like COBYLA)
+def bounds_constraints(parameters):
+    beam_current, cooling_time, counting_time, distance_foil, irradiation_time = parameters
+    if beam_current_bounds[0] <= beam_current <= beam_current_bounds[1] and \
+       cooling_time_bounds[0] <= cooling_time <= cooling_time_bounds[1] and \
+       counting_time_bounds[0] <= counting_time <= counting_time_bounds[1] and \
+       distance_foil_bounds[0] <= distance_foil <= distance_foil_bounds[1] and \
+       irradiation_time_bounds[0] <= irradiation_time <= irradiation_time_bounds[1]:
+        return 0
+    else:
+        return -1
+
 def callback(parameters):
 
     print(f"Current parameters: {parameters}")
 
-sol = minimize(objective, initial_guess, method = "COBYLA", bounds = boundary, constraints = constraint_1, callback=callback)
+sol = minimize(objective, initial_guess, method = "COBYLA", bounds = boundary, constraints = constraint_1 + bounds_constraints, callback=callback)
 #sol = minimize(objective, initial_guess, method = "BFGS", bounds = boundary)
 print(sol)
 
