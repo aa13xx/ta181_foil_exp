@@ -38,7 +38,7 @@ def objective(parameters):
     peak_energy = 343.4 #keV
     
     peak_area = ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
-
+    print(f'peak_area = {peak_area}')
     return(-peak_area)
 
 #constraints
@@ -57,40 +57,16 @@ def constraints1(parameters):
     
     activity = ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
     x = foil_activity_limit - activity 
-     
+    print(f'x = {x}')
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
 constraint_1 = [{"type": "ineq", "fun": constraints1}]
 
-# Define the bounds constraints for COBYLA
-def bound_constraints(parameters):
-    #parameters
-    beam_current = parameters[0]
-    cooling_time = parameters[1]
-    counting_time = parameters[2]
-    distance_foil = parameters[3]
-    irradiation_time = parameters[4]
-
-    constraints = [
-        beam_current - beam_current_bounds[0],
-        beam_current_bounds[1] - beam_current,
-        cooling_time - cooling_time_bounds[0],
-        cooling_time_bounds[1] - cooling_time,
-        counting_time - counting_time_bounds[0],
-        counting_time_bounds[1] - counting_time,
-        distance_foil - distance_foil_bounds[0],
-        distance_foil_bounds[1] - distance_foil,
-        irradiation_time - irradiation_time_bounds[0],
-        irradiation_time_bounds[1] - irradiation_time,
-    ]
-    return min(constraints)
-
-bound_constraints = [{"type": "ineq", "fun": bound_constraints}]
 
 def callback(parameters):
     print(f"Current parameters: {parameters}")
 
-sol = minimize(objective, initial_guess, method = "COBYLA", bounds = boundary, constraints = constraint_1 + bound_constraints, callback=callback)
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1, callback=callback)
 #sol = minimize(objective, initial_guess, method = "BFGS", bounds = boundary)
 print(sol)
 
