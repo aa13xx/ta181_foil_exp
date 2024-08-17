@@ -54,13 +54,19 @@ def constraints1(parameters):
     thickness_foil = 0.01 #mm
     #constraint values
     foil_activity_limit = 1e12 #keV
-    x = foil_activity_limit - ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
+    
+    activity = ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
+    x = foil_activity_limit - activity 
      
     return(x) #activity shouldnt exceed the preset foil_activity (radiation amount accumulated during gamma collection in keV)
 
 constraint_1 = [{"type": "ineq", "fun": constraints1}]
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
+def callback(parameters):
+
+    print(f"Current parameters: {parameters}")
+
+sol = minimize(objective, initial_guess, method = "COBYLA", bounds = boundary, constraints = constraint_1, callback=callback)
 #sol = minimize(objective, initial_guess, method = "BFGS", bounds = boundary)
 print(sol)
 
