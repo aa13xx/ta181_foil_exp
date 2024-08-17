@@ -74,8 +74,9 @@ def bounds_constraints(parameters):
     else:
         return -1
 
-def callback(parameters):
+bounds_constraints = [{"type": "ineq", "fun": bounds_constraints}]
 
+def callback(parameters):
     print(f"Current parameters: {parameters}")
 
 sol = minimize(objective, initial_guess, method = "COBYLA", bounds = boundary, constraints = constraint_1 + bounds_constraints, callback=callback)
