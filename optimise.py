@@ -9,17 +9,17 @@ from main_function import ta181_foil_process
 beam_current_bounds = (1e-9, 10e-6) #A
 cooling_time_bounds = (120, 864000) #s
 counting_time_bounds = (100, 86400) #s
-distance_foil_bounds = (0.01, 20) #cm
+distance_foil_bounds = (0.1, 20) #cm
 irradiation_time_bounds = (30,3600) #s
 
 boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, distance_foil_bounds, irradiation_time_bounds]
 
 #initial values
 beam_current = 1e-7 #A
-cooling_time = 10000 #s
+cooling_time = 1000 #s
 counting_time = 1000 #s
 distance_foil = 5 #cm
-irradiation_time = 1000 #s
+irradiation_time = 100 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 
@@ -38,6 +38,7 @@ def objective(parameters):
     peak_energy = 343.4 #keV
     
     peak_area = ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
+    print(f'parameters = {parameters}')
     print(f'peak_area = {peak_area}')
     return(-peak_area)
 
@@ -62,11 +63,10 @@ def constraints1(parameters):
 
 constraint_1 = [{"type": "ineq", "fun": constraints1}]
 
+#def callback(parameters):
+#    print(f"Current parameters: {parameters}")
 
-def callback(parameters):
-    print(f"Current parameters: {parameters}")
-
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1, callback=callback)
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = constraint_1)
 #sol = minimize(objective, initial_guess, method = "BFGS", bounds = boundary)
 print(sol)
 
