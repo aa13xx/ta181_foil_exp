@@ -1,6 +1,12 @@
 import pandas
 import numpy as np
 
+def check_negative_values(dataframe):
+    if (dataframe < 0).any().any():
+        raise ValueError("The DataFrame contains negative values.")
+    else:
+        print("No negative values found in the DataFrame.")
+
 def foil_interaction(atomic_mass_foil, beam_current, density_foil, irradiation_time, thickness_foil):
     avogadros = 6.02214e23
     mm_to_barn = 1e22
@@ -39,10 +45,15 @@ def foil_gamma(df_radionuclide, radionuclide_list, cooling_time, counting_time,f
         df_gamma.append(df)
     #print(df_gamma)    
     df_gamma = pandas.concat(df_gamma,ignore_index=True)
+
+    try: #check negative values in df_gamma
+        check_negative_values(df_gamma)
+    except ValueError as e:
+        print(e)
+
     source_activity = df_gamma['decay'].sum()
     #print(source_activity)
     df_gamma['intensity_real'] =  df_gamma['decay'] / source_activity
     df_gamma = df_gamma.groupby('energy', as_index=False).agg({'decay': 'sum','intensity_real': 'sum','intensity': 'sum'})
     #print(df_gamma)
     return(df_gamma)
-
