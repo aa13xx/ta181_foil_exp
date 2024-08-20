@@ -2,7 +2,6 @@ import pandas
 import numpy as np
 
 from foil_presimulation import foil_interaction, foil_radionuclide, foil_radionuclide_quantity
-from main_function import ta181_foil_process
 
 def foil_activity(df_radionuclide, radionuclide_list, cooling_time, counting_time,foil_isotope):
     df_gamma = []

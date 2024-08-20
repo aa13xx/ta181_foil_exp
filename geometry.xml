@@ -9,7 +9,7 @@
   <cell id="7" material="1" region="-32 33 39 -38 34 -35" universe="1"/>
   <cell id="8" material="1" region="-32 33 39 -38 -36 37" universe="1"/>
   <cell id="9" material="void" region="-1 ~(-4 3 -2 ~(-6 7 -5) 8) ~((-19 18 -16 17) | (-22 21 -20 5)) ~((-12 11 -9 10) | (-15 14 -13 29)) ~(-25 24 -23) ~(-28 27 -26) ~(-31 30 -29) ~(-32 33 39 -38 34 -35) ~(-32 33 39 -38 -36 37)" universe="1"/>
-  <surface boundary="vacuum" coeffs="0.0 0.0 0.0 11.5" id="1" type="sphere"/>
+  <surface boundary="vacuum" coeffs="0.0 0.0 0.0 21" id="1" type="sphere"/>
   <surface coeffs="0.0 0.0 2.465" id="2" type="z-cylinder"/>
   <surface coeffs="-5.29" id="3" type="z-plane"/>
   <surface coeffs="0" id="4" type="z-plane"/>
