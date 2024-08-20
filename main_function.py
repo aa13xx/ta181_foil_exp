@@ -35,11 +35,11 @@ def ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil,
     fit_c = -0.0001950029411875738
 
     beam_interaction = foil_interaction(atomic_mass_foil, beam_current, density_foil, irradiation_time, thickness_foil) #foil irradiation
-    print(beam_interaction)
+    print(f'beam interaction = {beam_interaction}')
     radionuclide_list = foil_radionuclide(cxfile) #name list of foil radionuclides
     df_radionuclide = foil_radionuclide_quantity(proton_energy, cxfile, beam_interaction) #data of foil radionuclides
     df_gamma = foil_gamma(df_radionuclide, radionuclide_list, cooling_time, counting_time, foil_isotope) #creating the gamma energy profile
-    print(df_gamma.decay.sum())
+    print(f'activity = {df_gamma.decay.sum()}')
     foil_simulation(df_gamma, distance_foil, energy_bins) #openmc simulation
     
     peak_area = foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy)

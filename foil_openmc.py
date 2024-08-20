@@ -178,7 +178,7 @@ def foil_simulation(df_gamma, distance_foil, energy_bins):
     settings.photon_transport = True
     settings.run_mode = "fixed source"
     settings.source = source
-    settings.verbosity = 7
+    settings.verbosity = 1
     settings.material_cell_offsets = False
     settings.threads = 1
     settings.export_to_xml(f"settings.xml")
