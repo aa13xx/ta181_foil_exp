@@ -77,8 +77,8 @@ def constraint_dose(parameters):
 
 constraint_dose(initial_guess)
 
-cons_main = [{"type": "eq", "fun": constraint_main}]
-cons_dose = [{"type": "ineq", "fun": constraint_dose}]
+cons_main = {"type": "eq", "fun": constraint_main}
+cons_dose = {"type": "ineq", "fun": constraint_dose}
 cons = [cons_main, cons_dose]
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons)
