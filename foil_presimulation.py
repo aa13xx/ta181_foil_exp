@@ -57,3 +57,25 @@ def foil_gamma(df_radionuclide, radionuclide_list, cooling_time, counting_time,f
     df_gamma = df_gamma.groupby('energy', as_index=False).agg({'decay': 'sum','intensity_real': 'sum','intensity': 'sum'})
     #print(df_gamma)
     return(df_gamma)
+
+def foil_dose(df_radionuclide, radionuclide_list, cooling_time, counting_time,foil_isotope):
+    df_gamma = []
+    for i in radionuclide_list:
+        df = pandas.read_csv(f"{foil_isotope}_decay/{i}.csv") #will need energy (in kev), intensity (in %), and half_life (in s) **, half_life_m and fraction for daughter
+        df['decay'] = 0 #create a new df column that is actual intensity, if
+        df['decay'] = df['decay'].astype(float)
+        N_1_ti = np.exp((-np.log(2)/df["half_life"]) * cooling_time)
+        N_1_tf = np.exp((-np.log(2)/df["half_life"]) * (cooling_time + counting_time))
+        N_2_ti = np.exp((-np.log(2)/df["half_life_m"]) * cooling_time) - np.exp((-np.log(2)/df["half_life"]) * cooling_time)
+        N_2_tf = np.exp((-np.log(2)/df["half_life_m"]) * (cooling_time + counting_time)) - np.exp((-np.log(2)/df["half_life"]) * (cooling_time + counting_time))
+        N_1_ti_ = np.exp((-np.log(2)/df["half_life_m"]) * cooling_time)
+        N_1_tf_ = np.exp((-np.log(2)/df["half_life_m"]) * (cooling_time + counting_time))
+        lambda_1_2_1 = ((np.log(2)/df["half_life_m"])/((np.log(2)/df["half_life"])-(np.log(2)/df["half_life_m"])))
+        df.loc[df['fraction_m'] == 0, 'decay'] = float(df_radionuclide[f"{i}"].iloc[0]) * (N_1_ti - N_1_tf) * 0.01 * df['intensity']
+        df.loc[(df['fraction_m'] > 0), 'decay'] = float(df_radionuclide[f"{i}"].iloc[0]) * df['fraction_m'] * (N_1_ti_ - N_1_tf_ - (lambda_1_2_1 * (N_2_tf - N_2_ti))) * 0.01 * df['intensity']
+        df_gamma.append(df) 
+    df_gamma = pandas.concat(df_gamma,ignore_index=True)
+    df_gamma['energy_total'] = df_gamma['decay'] * df_gamma["energy"]
+    foil_dose = df_gamma['energy_total'].sum()
+    
+    return(foil_dose)

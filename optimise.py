@@ -3,7 +3,7 @@ import pandas
 import numpy as np
 
 from optimise_functions import ta181_foil_activity
-from main_function import ta181_foil_process
+from foil_functions import foil_process, foil_dose_process
 
 #bounds
 beam_current_bounds = (1e-9, 10e-6) #A
@@ -47,12 +47,11 @@ def constraint_main(parameters):
     irradiation_time = parameters[4]
     #fixed
     proton_energy = 2e7 #eV
-    thickness_foil = 0.01 #mm
     #interested peak
     peak_energy = 343.4 #keV
     peak_area_goal = 10000
     
-    x = -peak_area_goal + ta181_foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil, peak_energy)
+    x = -peak_area_goal + foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, peak_energy)
     #print(f'x = {x}')
     return(x)
 
@@ -66,12 +65,11 @@ def constraint_dose(parameters):
     irradiation_time = parameters[4]
     #fixed
     proton_energy = 2e7 #eV
-    thickness_foil = 0.01 #mm
     #constraint values
     foil_dose_limit = 50 #mSv/hr
     foil_dose_max = counting_time * foil_dose_limit * 1e-3 / 1.60217e-19 / 3600 / 1000 #converting (mSv/hr) to (keV over counting_time)
     #print(f'foil dose max limit = {foil_dose_max}')
-    x = foil_dose_max - ta181_foil_activity(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, thickness_foil)
+    x = foil_dose_max - foil_dose_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy)
     #print(f'x = {x}')
     return(x) 
 
