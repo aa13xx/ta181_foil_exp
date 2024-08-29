@@ -2,7 +2,6 @@ from scipy.optimize import minimize
 import pandas
 import numpy as np
 
-from optimise_functions import ta181_foil_activity
 from foil_functions import foil_process, foil_dose_process
 
 #bounds
@@ -79,7 +78,12 @@ cons_main = {"type": "eq", "fun": constraint_main}
 cons_dose = {"type": "ineq", "fun": constraint_dose}
 cons = [cons_main, cons_dose]
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons)
+iteration_results = []
+
+def callback(xk):
+    iteration_results.append(xk.copy())
+
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback)
 print(sol)
 
 #this is to test the process with the initial values
