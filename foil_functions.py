@@ -44,6 +44,6 @@ def foil_dose_process(parameters, proton_energy):
     beam_interaction = foil_interaction(atomic_mass_foil, parameters[0], density_foil, parameters[4], thickness_foil) #foil irradiation
     radionuclide_list = foil_radionuclide(cxfile) #name list of foil radionuclides
     df_radionuclide = foil_radionuclide_quantity(proton_energy, cxfile, beam_interaction) #data of foil radionuclides
-    foil_dose = foil_dose(df_radionuclide, radionuclide_list, parameters[1], parameters[2], foil_isotope) 
+    dose = foil_dose(df_radionuclide, radionuclide_list, parameters[1], parameters[2], foil_isotope) 
 
-    return(foil_dose)
+    return(dose)
