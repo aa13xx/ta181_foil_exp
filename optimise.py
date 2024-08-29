@@ -50,7 +50,7 @@ def constraint_main(parameters):
     peak_energy = 343.4 #keV
     peak_area_goal = 10000
     
-    x = -peak_area_goal + foil_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy, peak_energy)
+    x = -peak_area_goal + foil_process(parameters, proton_energy, peak_energy)
     #print(f'x = {x}')
     return(x)
 
@@ -68,7 +68,7 @@ def constraint_dose(parameters):
     foil_dose_limit = 50 #mSv/hr
     foil_dose_max = counting_time * foil_dose_limit * 1e-3 / 1.60217e-19 / 3600 / 1000 #converting (mSv/hr) to (keV over counting_time)
     #print(f'foil dose max limit = {foil_dose_max}')
-    x = foil_dose_max - foil_dose_process(beam_current, cooling_time, counting_time, distance_foil, irradiation_time, proton_energy)
+    x = foil_dose_max - foil_dose_process(parameters, proton_energy)
     #print(f'x = {x}')
     return(x) 
 
