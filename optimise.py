@@ -84,10 +84,10 @@ iteration_results = []
 def callback(xk):
     iteration_results.append(xk.copy())
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'disp': True})
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
 print(f"solution = {sol}")
 
-df = pandas.DataFrame(iteration_results, columns=['parameter', 'totaltime'])
+df = pandas.DataFrame(iteration_results, columns=['x1', 'x2', 'x3', 'x4', 'x5'])
 df.to_csv('optimization_iterations.csv', index=False)
 
 #this is to test the process with the initial values
