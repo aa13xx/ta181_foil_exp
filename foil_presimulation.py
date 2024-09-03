@@ -52,7 +52,7 @@ def foil_gamma(df_radionuclide, radionuclide_list, cooling_time, counting_time,f
         print(e)
 
     source_activity = df_gamma['decay'].sum()
-    #print(source_activity)
+    print(source_activity)
     df_gamma['intensity_real'] =  df_gamma['decay'] / source_activity
     df_gamma = df_gamma.groupby('energy', as_index=False).agg({'decay': 'sum','intensity_real': 'sum','intensity': 'sum'})
     #print(df_gamma)

@@ -79,16 +79,17 @@ cons_main = {"type": "eq", "fun": constraint_main}
 cons_dose = {"type": "ineq", "fun": constraint_dose}
 cons = [cons_main, cons_dose]
 
-iteration_results = []
-
+#Track iteration Results
+df_results = pandas.DataFrame(columns=['Parameter 1', 'Parameter 2', 'Parameter 3','Parameter 4','Parameter 5','Total Time'])
 def callback(xk):
-    iteration_results.append(xk.copy())
+    fval = objective(xk)  # Calculate the objective function value for the current parameters
+    global df_results
+    df_results = df_results.append({'Parameter 1': xk[0], 'Parameter 2': xk[1], 'Parameter 3': xk[2], 'Parameter 4': xk[3], 'Parameter 5': xk[4], 'Total Time': fval}, 
+                                   ignore_index=True) 
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
 print(f"solution = {sol}")
 
-df = pandas.DataFrame(iteration_results, columns=['x1', 'x2', 'x3', 'x4', 'x5'])
-df.to_csv('optimization_iterations.csv', index=False)
 
 #this is to test the process with the initial values
 #print(objective(initial_guess))
