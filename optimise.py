@@ -84,8 +84,8 @@ df_results = pandas.DataFrame(columns=['Parameter 1', 'Parameter 2', 'Parameter 
 def callback(xk):
     fval = objective(xk)  # Calculate the objective function value for the current parameters
     global df_results
-    df_results = df_results.append({'Parameter 1': xk[0], 'Parameter 2': xk[1], 'Parameter 3': xk[2], 'Parameter 4': xk[3], 'Parameter 5': xk[4], 'Total Time': fval}, 
-                                   ignore_index=True) 
+    new_row = pandas.DataFrame({'Parameter 1': [xk[0]], 'Parameter 2': [xk[1]], 'Parameter 3': [xk[2]], 'Parameter 4': [xk[3]], 'Parameter 5': [xk[4]], 'Total Time': [fval]})
+    df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
 print(f"solution = {sol}")
