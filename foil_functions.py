@@ -25,15 +25,13 @@ def foil_process(parameters, proton_energy, peak_energy):
     radionuclide_list = foil_radionuclide(cxfile) #name list of foil radionuclides
     df_radionuclide = foil_radionuclide_quantity(proton_energy, cxfile, beam_interaction) #data of foil radionuclides
     df_gamma = foil_gamma(df_radionuclide, radionuclide_list, parameters[1], parameters[2], foil_isotope) #creating the gamma energy profile
-    #foil_simulation(df_gamma, parameters[3], energy_bins) #openmc simulation
-    print(beam_interaction)
-    
+    foil_simulation(df_gamma, parameters[3], energy_bins) #openmc simulation
 
-    #peak_area = foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy)
-    #foil_spectrum(energy_bins) #display simple spectrum
-    #foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fit_c) #display processed spectrum (gaussian broadening and peak label)
+    peak_area = foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy)
+    foil_spectrum(energy_bins) #display simple spectrum
+    foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fit_c) #display processed spectrum (gaussian broadening and peak label)
 
-    return #(peak_area)
+    return (peak_area)
 
 def foil_dose_process(parameters, proton_energy):
     #insert tantulum info
@@ -49,15 +47,3 @@ def foil_dose_process(parameters, proton_energy):
     dose = foil_dose(df_radionuclide, radionuclide_list, parameters[1], parameters[2], foil_isotope) 
 
     return(dose)
-
-
-#initial values
-beam_current = 9e-6 #A
-cooling_time = 10000 #s
-counting_time = 1000 #s
-distance_foil = 5 #cm
-irradiation_time = 3600 #s
-
-initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
-proton_energy = 2e7
-foil_process(initial_guess,proton_energy,1)
