@@ -5,7 +5,7 @@ import pandas
 import matplotlib.pyplot as plt
 
 #other files
-from functions import findpeakarea, peakfinder, broad_spectrum
+from functions import peak_area_finder, peak_finder, broaden_spectrum
 
 def foil_peakarea(peakfinder_prominence, energy_bins):
     #extract tallies into pandas df
@@ -21,8 +21,8 @@ def foil_peakarea(peakfinder_prominence, energy_bins):
     df_openmc = pandas.DataFrame({'energy': energy_adjusted, 'intensity': intensity})
 
     #extract peakfinder results (peak energy, peak energy range)
-    peak_energy_arr = peakfinder(df_openmc,peakfinder_prominence)[0]
-    identified_peak_range = peakfinder(df_openmc,peakfinder_prominence)[1]
+    peak_energy_arr = peak_finder(df_openmc,peakfinder_prominence)[0]
+    identified_peak_range = peak_finder(df_openmc,peakfinder_prominence)[1]
 
     #array of peak's area
     peak_area_arr = []
@@ -67,12 +67,12 @@ def foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fi
     energy_adjusted = energy[1:]
 
     df_openmc = pandas.DataFrame({'energy': energy_adjusted, 'intensity': intensity})
-    renorm_broadened_intensity = broad_spectrum(df_openmc.intensity.to_numpy(), energy, sum(df_openmc.intensity), fit_a, fit_b, fit_c) #gaussian broadening
+    renorm_broadened_intensity = broaden_spectrum(df_openmc.intensity.to_numpy(), energy, sum(df_openmc.intensity), fit_a, fit_b, fit_c) #gaussian broadening
     plt.plot(df_openmc.energy, renorm_broadened_intensity)
     plt.xlabel('Energy [keV]')
     plt.ylabel('Intensity')
     #extract peakfinder results (peak energy, peak energy range)
-    peak_energy_arr = peakfinder(df_openmc,peakfinder_prominence)[0]
+    peak_energy_arr = peak_finder(df_openmc,peakfinder_prominence)[0]
 
     for i in peak_energy_arr:
         plt.vlines(x=i, color="red", ls =':', label=f"{i}keV", ymin = 0, ymax=1e15)

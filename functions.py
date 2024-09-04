@@ -13,7 +13,7 @@ def sci_notation(number, sig_fig=2):
     sigb = str(int(sigb))
     return siga + ' x 10^{' + sigb + '}'
 
-def peakleft(df,est_peak_left):
+def peak_left(df,est_peak_left):
     min_difference = abs(est_peak_left - df.energy[0]) 
     for value in df.energy: 
         difference = abs(est_peak_left - value) 
@@ -22,7 +22,7 @@ def peakleft(df,est_peak_left):
             peak_left = value 
     return(peak_left)
 
-def peakright(df,est_peak_right):
+def peak_right(df,est_peak_right):
     min_difference = abs(est_peak_right - df.energy[0]) 
     for value in df.energy: 
         difference = abs(est_peak_right - value) 
@@ -31,21 +31,21 @@ def peakright(df,est_peak_right):
             peak_right = value 
     return(peak_right)
 
-def peakleftwin(df,est_peak_left):
-    peak_left = peakleft(df, est_peak_left)
-    peak_left_win = peak_left -5
-    return(peak_left_win)
+def peak_left_win(df,est_peak_left):
+    peakleft = peak_left(df, est_peak_left)
+    peakleft_win = peakleft -5
+    return(peakleft_win)
 
-def peakrightwin(df,est_peak_right):
-    peak_right = peakright(df, est_peak_right)
-    peak_right_win = peak_right +5
-    return(peak_right_win)
+def peak_right_win(df,est_peak_right):
+    peakright = peak_right(df, est_peak_right)
+    peakright_win = peakright +5
+    return(peakright_win)
 
 #interested region of a photopeak
 def interested_region(df,est_peak_left,est_peak_right,variable):
-        peak_left = peakleft(df, est_peak_left)
-        peak_right = peakright(df, est_peak_right)
-        interested_energy_range = df.loc[(df["energy"] >= peak_left) & (df["energy"] <= peak_right), f"{variable}"]
+        peakleft = peak_left(df, est_peak_left)
+        peakright = peak_right(df, est_peak_right)
+        interested_energy_range = df.loc[(df["energy"] >= peakleft) & (df["energy"] <= peakright), f"{variable}"]
         return(interested_energy_range)
 
 #def interested_intensity(df,est_peak_left,est_peak_right):
@@ -56,22 +56,22 @@ def interested_region(df,est_peak_left,est_peak_right,variable):
 
 #background fx
 def background(df,est_peak_left,est_peak_right):
-    peak_left = peakleft(df, est_peak_left)
-    peak_right = peakright(df, est_peak_right)
+    peakleft = peak_left(df, est_peak_left)
+    peakright = peak_right(df, est_peak_right)
     #intensity_left = int(float(df.loc[(df['energy'] == peak_left), 'intensity'].to_string(index=False)))
     #intensity_right = int(float(df.loc[(df['energy'] == peak_right), 'intensity'].to_string(index=False)))
     #baseline = sum([intensity_left, intensity_right])/len([intensity_left, intensity_right])
-    low_mean = df.loc[(df["energy"] >= peak_left - 2) & (df["energy"] <= peak_left), "intensity"].mean()
-    high_mean = df.loc[(df["energy"] >= peak_right) & (df["energy"] <= peak_right + 2), "intensity"].mean()
+    low_mean = df.loc[(df["energy"] >= peakleft - 2) & (df["energy"] <= peakleft), "intensity"].mean()
+    high_mean = df.loc[(df["energy"] >= peakright) & (df["energy"] <= peakright + 2), "intensity"].mean()
     bg_val = (low_mean + high_mean) / 2 
     return (bg_val)
 
 #peak area fx
-def findpeakarea(df,est_peak_left,est_peak_right):
-    peak_left = peakleft(df, est_peak_left)
-    peak_right = peakright(df, est_peak_right)
+def peak_area_finder(df,est_peak_left,est_peak_right):
+    peakleft = peak_left(df, est_peak_left)
+    peakright = peak_right(df, est_peak_right)
     bg_val = background(df,est_peak_left,est_peak_right)
-    peak_df = df.loc[(df['energy'] >= peak_left) & (df['energy'] <= peak_right), 'intensity']
+    peak_df = df.loc[(df['energy'] >= peakleft) & (df['energy'] <= peakright), 'intensity']
     peak_df = peak_df.sub(bg_val)
     peak_sum = peak_df.sum()
     return (peak_sum)
@@ -90,7 +90,7 @@ def FWHM(df,est_peak_left,est_peak_right):
         return(FWHM)
 
 
-def peakfinder(df,prominence):
+def peak_finder(df,prominence):
     #finding peak and modifying data frame to include peak info
     intensity = df.intensity.to_numpy()
     #print(intensity) 
@@ -133,7 +133,7 @@ def gauss(E, a=1, b=1, c=1):
     sigma = (a + b * (E + c * E**2)**0.5) / (2 * (2 * np.log(2))**0.5)
     return np.random.normal(loc=E, scale=sigma)
 
-def broad_spectrum(pulse_height_values, energy_bin_boarders, sum_intensity, a, b, c):
+def broaden_spectrum(pulse_height_values, energy_bin_boarders, sum_intensity, a, b, c):
     energy_bin_centers = (energy_bin_boarders[1:] + energy_bin_boarders[:-1]) / 2
     #energy_bin_centers = energy_bin_boarders
     #a, b, c = -0.643e3, 6.794, 0.258e-3
