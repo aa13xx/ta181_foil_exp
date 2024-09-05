@@ -95,8 +95,12 @@ def callback(xk):
 
 df_results.to_csv('optimization_results.csv', index=False)
 
-foil_process_separate(initial_guess)
-print(foil_dose_process(initial_guess))
+#Spectrum
+proton_energy = 2e7 #eV
+peak_energy = 343.4 #keV
+print(foil_process_separate(initial_guess, proton_energy, peak_energy))
+
+
 #this is to test the process with the initial values
 #print(objective(initial_guess))
 #print(constraints1(initial_guess))

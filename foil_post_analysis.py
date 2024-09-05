@@ -56,7 +56,7 @@ def foil_spectrum(energy_bins):
     plt.ylabel('Intensity')
     plt.show()
 
-def foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fit_c):
+def foil_spectrum_processed(energy_bins, peak_energy, fit_a, fit_b, fit_c):
     #extract tallies into pandas df
     sp = openmc.StatePoint(f"statepoint.20.h5")
     tally = sp.get_tally(name=f"{"pulse-height"}")
@@ -75,7 +75,6 @@ def foil_spectrum_processed(energy_bins, peakfinder_prominence, fit_a, fit_b, fi
     #peak_energy_arr = peak_finder(df_openmc,peakfinder_prominence)[0]
     #for i in peak_energy_arr:
     #plt.vlines(x=i, color="red", ls =':', label=f"{i}keV", ymin = 0, ymax=1e15)
-    peak_energy = 343.4 #keV
     plt.vlines(x=peak_energy, color="crimson", ls =':', label=f"{peak_energy}keV", ymin = 0, ymax=1e15)
    
     plt.savefig(f"foil_spectrum_processed.png")
