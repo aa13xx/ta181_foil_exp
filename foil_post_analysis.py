@@ -68,13 +68,13 @@ def foil_spectrum_processed(energy_bins, peak_energy, fit_a, fit_b, fit_c):
 
     df_openmc = pandas.DataFrame({'energy': energy_adjusted, 'intensity': intensity})
     renorm_broadened_intensity = broaden_spectrum(df_openmc.intensity.to_numpy(), energy, sum(df_openmc.intensity), fit_a, fit_b, fit_c) #gaussian broadening
-    plt.plot(df_openmc.energy, renorm_broadened_intensity, alpha = 0.8, color = "steelblue")
+    plt.semilogy(df_openmc.energy, renorm_broadened_intensity, alpha = 0.8, color = "steelblue")
     plt.xlabel('Energy [keV]')
     plt.ylabel('Intensity')
     #extract peakfinder results (peak energy, peak energy range)
     #peak_energy_arr = peak_finder(df_openmc,peakfinder_prominence)[0]
     #for i in peak_energy_arr:
     #plt.vlines(x=i, color="red", ls =':', label=f"{i}keV", ymin = 0, ymax=1e15)
-    plt.vlines(x=peak_energy, color="crimson", ls =':', label=f"{peak_energy}keV", ymin = 0, ymax=1e15)
+    plt.vlines(x=peak_energy, color="crimson", ls =':', label=f"{peak_energy}keV", ymin = 0, ymax=renorm_broadened_intensity.max())
    
     plt.savefig(f"foil_spectrum_processed.png")
