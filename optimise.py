@@ -15,10 +15,10 @@ boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, dist
 
 #initial values
 beam_current = 1e-5 #A
-cooling_time = 130 #s
-counting_time = 130 #s
+cooling_time = 80 #s
+counting_time = 80 #s
 distance_foil = 5 #cm
-irradiation_time = 130 #s
+irradiation_time = 80 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 
@@ -85,7 +85,7 @@ df_results = pandas.DataFrame(columns=["Beam_Current", "Cooling_Time", "Counting
 def callback(xk):
     fval = objective(xk)  # Calculate the objective function value for the current parameters
     global df_results
-    new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Cooling_Time": [xk[1]], "Counting_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total Time': [fval]})
+    new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Cooling_Time": [xk[1]], "Counting_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total_Time': [fval]})
     df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
