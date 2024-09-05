@@ -2,7 +2,7 @@ from scipy.optimize import minimize
 import pandas
 import numpy as np
 
-from foil_functions import foil_process, foil_dose_process
+from foil_functions import foil_process, foil_dose_process, foil_process_separate
 
 #bounds
 beam_current_bounds = (1e-9, 10e-6) #A
@@ -15,10 +15,10 @@ boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, dist
 
 #initial values
 beam_current = 1e-5 #A
-cooling_time = 80 #s
-counting_time = 80 #s
+cooling_time = 120 #s
+counting_time = 121.9 #s
 distance_foil = 5 #cm
-irradiation_time = 80 #s
+irradiation_time = 124.2 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 
@@ -32,6 +32,7 @@ def objective(parameters):
     irradiation_time = parameters[4]
     
     total_time = cooling_time + counting_time + irradiation_time 
+    
     print(f'parameters = {parameters}')
     print(f'total time = {total_time}')
     return(total_time)
@@ -49,8 +50,8 @@ def constraint_main(parameters):
     #interested peak
     peak_energy = 343.4 #keV
     peak_area_goal = 10000
-    
     x = -peak_area_goal + foil_process(parameters, proton_energy, peak_energy)
+    
     print(f"peak_area_diff = {x}")
     return(x)
 
@@ -88,12 +89,14 @@ def callback(xk):
     new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Cooling_Time": [xk[1]], "Counting_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total_Time': [fval]})
     df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
-sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
-print(f"solution = {sol}")
+
+#sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
+#print(f"solution = {sol}")
 
 df_results.to_csv('optimization_results.csv', index=False)
 
-
+foil_process_separate(initial_guess)
+print(foil_dose_process(initial_guess))
 #this is to test the process with the initial values
 #print(objective(initial_guess))
 #print(constraints1(initial_guess))
