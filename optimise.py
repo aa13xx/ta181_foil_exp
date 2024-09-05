@@ -14,11 +14,11 @@ irradiation_time_bounds = (30,3600) #s
 boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, distance_foil_bounds, irradiation_time_bounds]
 
 #initial values
-beam_current = 9e-6 #A
-cooling_time = 10000 #s
-counting_time = 1000 #s
+beam_current = 1e-5 #A
+cooling_time = 130 #s
+counting_time = 130 #s
 distance_foil = 5 #cm
-irradiation_time = 3600 #s
+irradiation_time = 130 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 

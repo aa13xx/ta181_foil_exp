@@ -27,7 +27,7 @@ def foil_peakarea(peakfinder_prominence, energy_bins):
     #array of peak's area
     peak_area_arr = []
     for i,j in identified_peak_range:
-        peak_area_arr.append(findpeakarea(df_openmc,i,j))
+        peak_area_arr.append(peak_area_finder(df_openmc,i,j))
 
     df_peak_areas = pandas.DataFrame({'peak_energy': peak_energy_arr, 'peak_areas': peak_area_arr})
     return(df_peak_areas)
