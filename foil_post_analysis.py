@@ -71,6 +71,7 @@ def foil_spectrum_processed(energy_bins, peak_energy, fit_a, fit_b, fit_c):
     plt.semilogy(df_openmc.energy, renorm_broadened_intensity, alpha = 0.8, color = "steelblue")
     plt.xlabel('Energy [keV]')
     plt.ylabel('Intensity')
+    plt.xlim(0,600)
     #extract peakfinder results (peak energy, peak energy range)
     #peak_energy_arr = peak_finder(df_openmc,peakfinder_prominence)[0]
     #for i in peak_energy_arr:
