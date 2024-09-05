@@ -50,9 +50,10 @@ def constraint_main(parameters):
     #interested peak
     peak_energy = 233.9 #keV
     peak_area_goal = 10000
-    x = -peak_area_goal + foil_process(parameters, proton_energy, peak_energy)
+    peak_area = foil_process(parameters, proton_energy, peak_energy)
+    x = -peak_area_goal + peak_area
     
-    print(f"peak_area_diff = {x}")
+    print(f"peak_area = {peak_area}")
     return(x)
 
 #dose constraint

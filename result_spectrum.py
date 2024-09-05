@@ -4,11 +4,11 @@ import numpy as np
 
 from foil_functions import foil_process_separate
 #initial values
-beam_current = 1e-5 #A
+beam_current = 4.17e-6 #A
 cooling_time = 120 #s
-counting_time = 121.9 #s
+counting_time = 100 #s
 distance_foil = 5 #cm
-irradiation_time = 124.2 #s
+irradiation_time = 30 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 

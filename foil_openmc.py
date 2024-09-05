@@ -170,7 +170,7 @@ def foil_simulation(df_gamma, distance_foil, energy_bins):
     
     #Settings
     sim_batch = 20
-    sim_particle = 200000
+    sim_particle = 5000000
 
     settings = openmc.Settings()
     settings.particles = sim_particle 
