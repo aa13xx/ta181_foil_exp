@@ -67,7 +67,7 @@ def foil_process_separate(parameters, proton_energy, peak_energy):
     radionuclide_list = foil_radionuclide(cxfile) #name list of foil radionuclides
     df_radionuclide = foil_radionuclide_quantity(proton_energy, cxfile, beam_interaction) #data of foil radionuclides
     df_gamma = foil_gamma(df_radionuclide, radionuclide_list, parameters[1], parameters[2], foil_isotope) #creating the gamma energy profile
-    #foil_simulation(df_gamma, parameters[3], energy_bins) #openmc simulation
+    foil_simulation(df_gamma, parameters[3], energy_bins) #openmc simulation
 
     peak_area = foil_specific_peak_finder(peakfinder_prominence, energy_bins, peak_energy)
     #foil_spectrum(energy_bins) #display simple spectrum

@@ -90,15 +90,11 @@ def callback(xk):
     df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
 
-#sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
-#print(f"solution = {sol}")
+sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
+print(f"solution = {sol}")
 
 df_results.to_csv('optimization_results.csv', index=False)
 
-#Spectrum
-proton_energy = 2e7 #eV
-peak_energy = 343.4 #keV
-print(foil_process_separate(initial_guess, proton_energy, peak_energy))
 
 
 #this is to test the process with the initial values
