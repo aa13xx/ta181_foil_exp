@@ -85,7 +85,7 @@ df_results = pandas.DataFrame(columns=["Beam_Current", "Cooling_Time", "Counting
 def callback(xk):
     fval = objective(xk)  # Calculate the objective function value for the current parameters
     global df_results
-    new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Counting_Time": [xk[1]], "Collection_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total Time': [fval]})
+    new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Cooling_Time": [xk[1]], "Counting_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total Time': [fval]})
     df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})
