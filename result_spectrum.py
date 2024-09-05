@@ -14,5 +14,5 @@ initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irrad
 
 #Spectrum
 proton_energy = 2e7 #eV
-peak_energy = 343.4 #keV
+peak_energy = 233.9 #keV
 print(foil_process_separate(initial_guess, proton_energy, peak_energy))

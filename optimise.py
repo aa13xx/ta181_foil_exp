@@ -14,11 +14,11 @@ irradiation_time_bounds = (30,3600) #s
 boundary = [beam_current_bounds, cooling_time_bounds, counting_time_bounds, distance_foil_bounds, irradiation_time_bounds]
 
 #initial values
-beam_current = 1e-5 #A
-cooling_time = 120 #s
-counting_time = 121.9 #s
+beam_current = 5e-6 #A
+cooling_time = 200 #s
+counting_time = 200 #s
 distance_foil = 5 #cm
-irradiation_time = 124.2 #s
+irradiation_time = 200 #s
 
 initial_guess = [beam_current, cooling_time, counting_time, distance_foil, irradiation_time]
 
@@ -48,7 +48,7 @@ def constraint_main(parameters):
     #fixed
     proton_energy = 2e7 #eV
     #interested peak
-    peak_energy = 343.4 #keV
+    peak_energy = 233.9 #keV
     peak_area_goal = 10000
     x = -peak_area_goal + foil_process(parameters, proton_energy, peak_energy)
     
@@ -71,7 +71,7 @@ def constraint_dose(parameters):
     dose = foil_dose_process(parameters, proton_energy) / counting_time #uSv/s
     x = foil_dose_limit - dose
 
-    print(f"dose = {dose}")
+    print(f"dose = {dose}uSv")
     return(x) 
 
 constraint_dose(initial_guess)
@@ -94,8 +94,6 @@ sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, co
 print(f"solution = {sol}")
 
 df_results.to_csv('optimization_results.csv', index=False)
-
-
 
 #this is to test the process with the initial values
 #print(objective(initial_guess))
