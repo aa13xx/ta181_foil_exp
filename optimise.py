@@ -65,12 +65,12 @@ def constraint_dose(parameters):
     #fixed
     proton_energy = 2e7 #eV
     #constraint values
-    foil_dose_limit = 50 #mSv/hr
-    foil_dose_max = counting_time * foil_dose_limit * 1e-3 / 1.60217e-19 / 3600 / 1000 #converting (mSv/hr) to (keV over counting_time)
-    #print(f'foil dose max limit = {foil_dose_max}')
-    dose = foil_dose_process(parameters, proton_energy)
+    foil_dose_limit = 50 #uSv/hr
+    foil_dose_limit = 50 * 3600 #uSv/s
+    dose = foil_dose_process(parameters, proton_energy) / counting_time #uSv/s
+    x = foil_dose_limit - dose
+
     print(f"dose = {dose}")
-    x = foil_dose_max - dose
     return(x) 
 
 constraint_dose(initial_guess)
@@ -80,11 +80,12 @@ cons_dose = {"type": "ineq", "fun": constraint_dose}
 cons = [cons_main, cons_dose]
 
 #Track iteration Results
-df_results = pandas.DataFrame(columns=['Parameter 1', 'Parameter 2', 'Parameter 3','Parameter 4','Parameter 5','Total Time'])
+df_results = pandas.DataFrame(columns=["Beam_Current", "Cooling_Time", "Counting_Time", "Distance", "Irradiation_Time", "Total_Time"])
+
 def callback(xk):
     fval = objective(xk)  # Calculate the objective function value for the current parameters
     global df_results
-    new_row = pandas.DataFrame({'Parameter 1': [xk[0]], 'Parameter 2': [xk[1]], 'Parameter 3': [xk[2]], 'Parameter 4': [xk[3]], 'Parameter 5': [xk[4]], 'Total Time': [fval]})
+    new_row = pandas.DataFrame({"Beam_Current": [xk[0]], "Counting_Time": [xk[1]], "Collection_Time": [xk[2]], "Distance": [xk[3]], "Irradiation_Time": [xk[4]], 'Total Time': [fval]})
     df_results = pandas.concat([df_results, new_row], ignore_index=True)
 
 sol = minimize(objective, initial_guess, method = "SLSQP", bounds = boundary, constraints = cons, callback=callback, options={'maxiter': 1000, 'disp': True})

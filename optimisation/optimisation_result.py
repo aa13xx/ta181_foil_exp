@@ -1,7 +1,7 @@
 import pandas
 import matplotlib.pyplot as plt
 
-df = pandas.read_csv("optimisation/optimization_results.csv", usecols=["Beam_Current", "Cooling_Time", "Collection_Time", "Distance", "Irradiation_Time", "Total_Time"])
+df = pandas.read_csv("optimisation/optimization_results.csv", usecols=["Beam_Current", "Counting_Time", "Collection_Time", "Distance", "Irradiation_Time", "Total_Time"])
 
 plt.figure(0)
 plt.plot(df.Total_Time, color="steelblue", alpha=0.8)
