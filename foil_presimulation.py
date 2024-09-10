@@ -18,7 +18,10 @@ def foil_interaction(atomic_mass_foil, beam_current, density_foil, irradiation_t
 def foil_radionuclide_quantity(proton_energy, cxfile, beam_interaction):
     df_cx = pandas.read_csv(cxfile) #cx data at each proton energy 5-30MeV (columns of reaction product nuclides)
     df_cx = df_cx[(df_cx.energy_p == proton_energy)] #select proton energy
-    df_radionuclide = df_cx * beam_interaction 
+    df_radionuclide = df_cx * beam_interaction
+
+    #print(df_cx)
+    #print(beam_interaction) 
     return(df_radionuclide)
 
 def foil_radionuclide(cxfile):

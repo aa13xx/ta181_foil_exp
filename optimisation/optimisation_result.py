@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 
 df = pandas.read_csv("optimisation/optimization_results_233.csv", usecols=["Beam_Current", "Cooling_Time", "Counting_Time", "Distance", "Irradiation_Time", "Total_Time"])
 df2 = pandas.read_csv("optimisation/optimization_results_233_2.csv", usecols=["Beam_Current", "Cooling_Time", "Counting_Time", "Distance", "Irradiation_Time", "Total_Time"])
+df3 = pandas.read_csv("optimisation/optimization_results_233_3.csv", usecols=["Beam_Current", "Cooling_Time", "Counting_Time", "Distance", "Irradiation_Time", "Total_Time"])
 
 plt.figure(0)
-plt.plot(df.Total_Time, color="steelblue", alpha=0.8)
-plt.plot(df2.Total_Time, color="steelblue", alpha=0.5)
+plt.plot(df.Total_Time, color="crimson", alpha=0.9, label = "run 1")
+plt.plot(df2.Total_Time, color="crimson", alpha=0.6, label = "run 2")
+plt.plot(df3.Total_Time, color="crimson", alpha=0.3, label = "run 3")
 plt.hlines(y=250, color="grey", ls =':', label=f"250s", xmin = 0, xmax=250)
 
 plt.legend()
